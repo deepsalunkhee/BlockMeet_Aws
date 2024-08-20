@@ -2,24 +2,29 @@ const mongoose=require("mongoose");
 
 const userSchema= mongoose.Schema({
    email:{
-     type:string,
+     type:String,
      required:true
    },
    passwordHash:{
-     type:string,
+     type:String,
      require:true
    }
 });
 
-const groupSchema=mongoose.Schema({
-  email:{
-    type:string,
-    required:true
-  }
+const conferenceSchema=mongoose.Schema({
+  //conference will have list of participants
+  
+  participants:[{
+    email:{
+      type:String,
+      required:true
+    }
+    
+  }]
   //I will add the rest things later
 })
 
 const User=mongoose.model("User",userSchema);
-const Group=mongoose.model("Group",groupSchema);
+const Conference=mongoose.model("Conference",conferenceSchema);
 
-module.exports={User,Group};
+module.exports={User,Conference};
