@@ -24,16 +24,14 @@ const Conference = () => {
   const peerConnection = useRef(null);
   const [remoteAudioTrack, setRemoteAudioTrack] = useState(null);
   const [remoteVideoTrack, setRemoteVideoTrack] = useState(null);
-
   let originalMLineOrder = [];
   const hasRefreshed = useRef(false); // Track if the page has already been refreshed
-
-  //useeffect which refresh a new page 5 sec after it is loaded
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     securitycheck();
-    connectSocket();
-  }, []);
+    if (email) connectSocket();
+  }, [email]);
 
   useEffect(() => {
     if (isSocketOpen) {
@@ -57,17 +55,12 @@ const Conference = () => {
           conferenceId: conferenceId,
         },
       });
+      //console.log("security check:",check.data.email);
+      setEmail(check.data.email);
+      //console.log("localuser",localuser);
     } catch (error) {
       alert("You are not authorized to view this conference");
       navigate("/");
-    }
-  };
-  const handleNewJoin = () => {
-    // Refresh only once when a new participant joins
-    if (!hasRefreshed.current) {
-      console.log("New participant joined, refreshing page once...");
-      hasRefreshed.current = true; // Mark as refreshed
-      window.location.reload(); // Trigger hard refresh
     }
   };
   const connectSocket = () => {
@@ -91,6 +84,7 @@ const Conference = () => {
         const messages = {
           type: "join",
           conferenceId,
+          email: email,
         };
         sendSignal(messages);
       };
@@ -115,8 +109,7 @@ const Conference = () => {
           case "sp-joined":
             handlePeerConnection();
             createOfferAndSend();
-            //setTimeout(handleNewJoin, 5000);
-           
+
             break;
           case "offer":
             handleRemoteOffer(data.offer);
@@ -130,6 +123,11 @@ const Conference = () => {
             handleNewICECandidate(data.candidate);
             console.log("Received new ICE candidate");
             break;
+          case "sp-left":
+            console.log("Super-peer left the meeting");
+            remoteVideoRef.current.srcObject = null;
+          //peerConnection.current.close();
+          //peerConnection.current = null;
           default:
             break;
         }
@@ -169,9 +167,17 @@ const Conference = () => {
 
       peerConnection.current.ontrack = (event) => {
         console.log("Received remote track");
-        attachStreamToVideoElement(remoteVideoRef.current, event.streams[0]);
-      };
+        const [remoteStream] = event.streams;
+        attachStreamToVideoElement(remoteVideoRef.current, remoteStream);
 
+        // Listen for track removal (when stream ends)
+        remoteStream.getTracks().forEach((track) => {
+          track.onended = () => {
+            console.log("Track ended, removing remote video");
+            remoteVideoRef.current.srcObject = null; // Clear the video element
+          };
+        });
+      };
       peerConnection.current.onnegotiationneeded = async () => {
         try {
           // Only create an offer if signaling state is 'stable'
@@ -345,9 +351,44 @@ const Conference = () => {
       console.error("Failed to get local stream:", error);
     }
   };
+
+  const leave = () => {
+    const messages = {
+      type: "leave",
+      conferenceId,
+      email: email,
+    };
+
+    // Close & delete the peerConnection
+    //if (peerConnection.current) {
+    //  peerConnection.current.close();
+    //  peerConnection.current = null; // Optional: Nullify the peerConnection object
+    //}
+
+    // Turn off the camera and mic
+    if (localVideoRef.current.srcObject) {
+      localVideoRef.current.srcObject
+        .getTracks()
+        .forEach((track) => track.stop());
+      localVideoRef.current.srcObject = null; // Clear local video element
+    }
+
+    // Also clear the remote video element
+    remoteVideoRef.current.srcObject = null;
+
+    sendSignal(messages);
+
+    // Optionally close the window or navigate away
+    // navigate("/");
+
+    setTimeout(() => {
+      window.close();
+    }, 1000);
+  };
   return (
     <div>
       <h1>Conference {conferenceId}</h1>
+      <button onClick={leave}>Leave Conference</button>
       <div>
         <video ref={localVideoRef} autoPlay playsInline />
         <video ref={remoteVideoRef} autoPlay playsInline />
