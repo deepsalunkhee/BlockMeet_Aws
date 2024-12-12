@@ -32,7 +32,7 @@ We’ve blended the best tools and technologies to build BlockMeet:
 - **IPFS Integration**: Pinata 📡  
 - **Blockchain**:  
   - Architecture: HardHat 🛠️  
-  - Smart Contracts: Solana 🧾  
+  - Smart Contracts: Solidity 🧾  
   - Deployment: Polygon Testnet ⛓️  
 
 ---
@@ -91,7 +91,6 @@ BlockMeet is structured into a clean, modular architecture:
 
 ## 🖼️ Visualizing BlockMeet  
 
-To add images like architecture diagrams or flowcharts, use this Markdown syntax:  
 
 
 ![step 1](readmeImgaes/1.png)
