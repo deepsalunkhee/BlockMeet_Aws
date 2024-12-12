@@ -93,23 +93,22 @@ BlockMeet is structured into a clean, modular architecture:
 
 To add images like architecture diagrams or flowcharts, use this Markdown syntax:  
 
-```markdown
-![step 1](./readmeImgaes/1.png)
-```
+
+![step 1](readmeImgaes/1.png)
 
 
-```markdown
+
+
 ![step 2](./readmeImgaes/2.png)
-```
 
 
-```markdown
+
+
 ![step 3](./readmeImgaes/3.png)
-```
 
-```markdown
+
 ![step 4](./readmeImgaes/4.png)
-```
+
 ---
 
 ## 🌟 Why Choose BlockMeet?  
