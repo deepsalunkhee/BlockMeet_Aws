@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
-import Dashboard from "./pages/dashboard";
-import Conference from "./pages/conference11";
-import IpfsFiles from "./pages/ipfsFiles";
+import Signin from "./pages/signin.jsx";
+import Signup from "./pages/signup.jsx";
+import Dashboard from "./pages/dashboard.jsx";
+import Conference from "./pages/conference11.jsx";
+import IpfsFiles from "./pages/ipfsFiles.jsx";
 import Logs from "./pages/logs";
 const App = () => {
   const baseip = "https://192.168.23.109";
