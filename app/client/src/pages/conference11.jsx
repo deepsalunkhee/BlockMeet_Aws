@@ -174,7 +174,7 @@ const Conference = ({baseip}) => {
 
   const handleJoined = (data) => {
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
+      .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         localStream.current = stream;
         if (localVideoRef.current) {
