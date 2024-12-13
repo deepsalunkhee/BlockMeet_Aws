@@ -3,6 +3,7 @@ const https = require("https");
 const WebSocket = require("ws");
 const express = require("express");
 const cors = require("cors");
+const http = require("http");
 
 // Read certificate and key files
 //const privateKey = fs.readFileSync(
@@ -23,7 +24,7 @@ const start = async () => {
   app.use(express.json());
 
   // Create an HTTPS server using the credentials
-  const server = https.createServer(app);
+  const server = http.createServer(app);
 
   // Attach WebSocket server to the HTTPS server
   const wss = new WebSocket.Server({ server });
@@ -67,7 +68,7 @@ const start = async () => {
 
   // Start the HTTPS and WebSocket servers
   const port = process.env.PORT || 3001;
-  server.listen(port, "0.0.0.0", () => {
+  server.listen(port, () => {
     console.log(`Secure WebSocket server is listening on port ${port}`);
   });
 
