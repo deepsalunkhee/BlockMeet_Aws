@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Signin from "./pages/signin.jsx";
-import Signup from "./pages/Signup.jsx";
+import Signup from "./pages/signup.jsx";
 import Dashboard from "./pages/dashboard.jsx";
 import Conference from "./pages/conference11.jsx";
 import IpfsFiles from "./pages/ipfsFiles.jsx";
