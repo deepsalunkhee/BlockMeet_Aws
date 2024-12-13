@@ -1,6 +1,6 @@
 const express = require("express");
-const https = require("https");
-const fs = require("fs");
+//const https = require("https");
+//const fs = require("fs");
 const cors = require("cors");
 const connectDB = require("./db/connections.js");
 const userRouter = require("./routes/users.js");
@@ -11,10 +11,10 @@ const app = express();
 const port = 5000;
 
 // Read your certificate and key files
-const httpsOptions = {
-  key: fs.readFileSync("E:/MERN/Projests/FInlaYearProject/server.key"),
-  cert: fs.readFileSync("E:/MERN/Projests/FInlaYearProject/server.cert"),
-};
+//const httpsOptions = {
+//  key: fs.readFileSync("E:/MERN/Projests/FInlaYearProject/server.key"),
+//  cert: fs.readFileSync("E:/MERN/Projests/FInlaYearProject/server.cert"),
+//};
 
 app.use(express.json());
 app.use(cors());
@@ -39,9 +39,7 @@ async function startServer() {
     //});
     app.listen(port, () => {
       console.log(`Blockmeet Server is running on http://localhost:${port}`);
-    }
-    );
-
+    });
   } catch (error) {
     console.error("Error starting server:", error);
   }
