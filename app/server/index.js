@@ -34,9 +34,14 @@ async function startServer() {
     app.use("/ipfs", ipfsRouter);
 
     // Create HTTPS server
-    https.createServer(httpsOptions, app).listen(port, "0.0.0.0", () => {
-      console.log(`Blockmeet Server is running on https://localhost:${port}`);
-    });
+    //https.createServer(httpsOptions, app).listen(port, "0.0.0.0", () => {
+    //  console.log(`Blockmeet Server is running on https://localhost:${port}`);
+    //});
+    app.listen(port, () => {
+      console.log(`Blockmeet Server is running on http://localhost:${port}`);
+    }
+    );
+
   } catch (error) {
     console.error("Error starting server:", error);
   }
