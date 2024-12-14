@@ -1,4 +1,4 @@
-
+### Note : This is just a replica of my original [BlockMeet](https://github.com/deepsalunkhee/BlockMeet) for AWS Deployment
 # 🚀 BlockMeet: The Decentralized Video Conferencing Revolution 🌐
 
 Welcome to **BlockMeet**, where video conferencing meets decentralization! 🎉 Designed for secure, small-group communication, BlockMeet is perfect for private discussions, sensitive collaborations, and modern tech enthusiasts. Let’s dive in!  
