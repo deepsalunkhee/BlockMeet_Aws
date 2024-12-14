@@ -7,8 +7,9 @@ const userRouter = require("./routes/users.js");
 const conferenceRouter = require("./routes/conference.js");
 const ipfsRouter = require("./routes/ipfs.js");
 
+
 const app = express();
-const port = 5000;
+const port =  process.env.PORT || 5000;
 
 // Read your certificate and key files
 //const httpsOptions = {
@@ -38,7 +39,7 @@ async function startServer() {
     //  console.log(`Blockmeet Server is running on https://localhost:${port}`);
     //});
     app.listen(port, () => {
-      console.log(`Blockmeet Server is running on http://localhost:${port}`);
+      console.log(`Blockmeet Server is running on Port:${port}`);
     });
   } catch (error) {
     console.error("Error starting server:", error);
